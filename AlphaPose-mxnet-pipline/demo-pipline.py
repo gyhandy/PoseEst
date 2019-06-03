@@ -1,10 +1,7 @@
 import os
 import os.path as osp
-import time
-
 from opt import opt
 from pipeline import PoseEstPip
-
 os.environ['MXNET_CUDNN_AUTOTUNE_DEFAULT'] = '0'
 # os.environ['MXNET_CPU_WORKER_NTHREADS'] = '2'
 
@@ -31,9 +28,20 @@ for i in range(PoseEstPip.__len__()):
     tensors, img, boxes, box_scores, pt1, pt2 = PoseEstPip.crop_process(img_batch[i], boxes, scores)
     # PoseEstimator
     boxes, box_scores, pose_coords, pose_scores = PoseEstPip.estimate_fn(tensors, boxes, box_scores, pt1, pt2)
-    # Pose NMS
-    PoseEstPip.PoseProcessor(img, boxes, box_scores, pose_coords, pose_scores, PoseEstPip.img_list[i])
 
+    ## 1 show keypoint
+    # Pose NMS
+    final_result = PoseEstPip.PoseProcessor(img, boxes, box_scores, pose_coords, pose_scores, PoseEstPip.img_list[i])
+
+    ## 2 show frame
+    # link frame
+
+    result = {
+        'imgname': PoseEstPip.img_list[i],
+        'result': final_result
+    }
+    # draw frame
+    PoseEstPip.vis_frame(img, result)
 
 
 
