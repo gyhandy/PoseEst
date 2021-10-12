@@ -3,7 +3,7 @@ scipy
 tqdm==4.32.1
 numpy==1.14.6
 matplotlib==2.2.2
-opencv_python==4.1.0.25
+opencv_python==4.2.0.32
 mxnet_cu100==1.4.1
 h5py==2.9.0
 torch==1.1.0
